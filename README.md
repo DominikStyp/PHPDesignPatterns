@@ -48,3 +48,8 @@ Sample code from [ArrayIterators.php](SplIterators/ArrayIterators.php):
     }
 ```
 3. [SplObjectStorage example](SplObjectStorage/SplObjectStorageExample.php) - example of using **SplObjectStorage** with hashing, which can **simulate Java Set** in PHP.
+4. Funny example, how to destroy every application based on autoloading, without using: throw, exit, eval and other obvious functions:
+```php
+spl_autoload_unregister("spl_autoload_call");
+```
+... this unregisters all the registered autoloaders.
