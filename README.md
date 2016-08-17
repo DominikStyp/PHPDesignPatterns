@@ -13,7 +13,7 @@ class Example {
   3. **LimitIterator**
   4. conversion from iterator to array using **iterator_to_array()**
 
-Sample code:
+Sample code from [ArrayIterators.php](SplIterators/ArrayIterators.php):
 ```php 
     /**
      * Example of how we can chain iterators.
