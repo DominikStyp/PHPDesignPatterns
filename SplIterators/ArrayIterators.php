@@ -36,10 +36,10 @@ class ArrayIterators {
     /**
      * Output is OK: 
      * 
-        John
-        Andrew
-        Mary
-        Philip 
+     *  John
+     *  Andrew
+     *  Mary
+     *  Philip 
      */
     public function regularIterator(){
         $it = new ArrayIterator($this->regularArray);
@@ -49,12 +49,12 @@ class ArrayIterators {
     /**
      * Output is not what we've expected: 
      * 
-        John
-        Andrew
-        Notice: Array to string conversion in (...)
-        Array
-        Mary
-        Philip 
+     *  John
+     *  Andrew
+     *  Notice: Array to string conversion in (...)
+     *  Array
+     *  Mary
+     *  Philip 
      */
     public function recursiveIteratorWRONG(){
         $it = new RecursiveArrayIterator($this->nestedArray);
@@ -66,11 +66,11 @@ class ArrayIterators {
      * Output is now what we've expected:
      * 
      *  John
-        Andrew
-        Barbara
-        Jenna
-        Mary
-        Philip 
+     *  Andrew
+     *  Barbara
+     *  Jenna
+     *  Mary
+     *  Philip 
      */
     public function recursiveIteratorOK(){
         $it = new RecursiveArrayIterator($this->nestedArray);
@@ -91,11 +91,11 @@ class ArrayIterators {
      *    in order to sort the result, you have to convert iterator to array, sort, and convert back to iterator
      * 
      * Expected output:
-        Alexandra
-        Andrew
-        Barbara
-        Bridgett
-        Charlize 
+     *  Alexandra
+     *  Andrew
+     *  Barbara
+     *  Bridgett
+     *  Charlize 
      *  
      */
     public function combinedIterators(){
