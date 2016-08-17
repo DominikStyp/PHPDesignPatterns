@@ -47,3 +47,4 @@ Sample code from [ArrayIterators.php](SplIterators/ArrayIterators.php):
         $this->display($it4);
     }
 ```
+3. [SplObjectStorage example](SplObjectStorage/SplObjectStorageExample.php) - example of using **SplObjectStorage** with hashing, which can **simulate Java Set* in PHP.
