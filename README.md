@@ -7,3 +7,43 @@ class Example {
   use SplSubjectTrait;
 }
 ```
+2. [ArrayIterator example](SplIterators/ArrayIterators.php) - example of using **ArrayIterator** in conjunction with:
+  1. **RecursiveArrayIterator**
+  2. **CallbackFilterIterator**
+  3. **LimitIterator**
+  4. conversion from iterator to array using **iterator_to_array()**
+
+Sample code:
+```php 
+    /**
+     * Example of how we can chain iterators.
+     * Let's say we want to: 
+     *  1) recursively display deeply nested array
+     *  2) display only names that have 5 or more characters
+     *  3) sort in alphabetical order
+     *  4) limit display to first 5
+     */
+    public function combinedIterators(){
+        $it = new RecursiveArrayIterator($this->deeplyNestedArray);
+        // asort in this case doesn't work, cause it's nested array
+        // $it->asort();
+        //wrap as recursive iterator
+        $it1 = new RecursiveIteratorIterator($it);
+        //filter by string length
+        $it2 = new CallbackFilterIterator($it1, 
+                /** 
+                 * Callback has to return TRUE to accept each element
+                 */
+                function ($current, $key, $iterator) {
+                    return strlen($current) >= 5;
+                });
+        // nested arrays must be converted to one-dimensional array first
+        $arr = iterator_to_array($it2, false);
+        // ... and then sorted
+        asort($arr);
+        $it3 = new ArrayIterator($arr);
+        //limit output
+        $it4 = new LimitIterator($it3, 0, 5);
+        $this->display($it4);
+    }
+```
