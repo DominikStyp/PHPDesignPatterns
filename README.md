@@ -1,5 +1,5 @@
 # This repo contains quick and useful examples in PHP
-1. [SplObserver example](SplObserver/Subject.php) - uses implementation of the **SplObserver** class of **Standard PHP Library**.
+* [SplObserver example](SplObserver/Subject.php) - uses implementation of the **SplObserver** class of **Standard PHP Library**.
 This example shows how **NOT TO COPY** the same implementation code all over again in every class where you want to use **SplObserver**.
 For that purpose I've used [PHP Traits](http://php.net/manual/en/language.oop5.traits.php) functionality, so every class that has to implement this interface just need to have the following statement: 
 ```php
@@ -7,7 +7,7 @@ class Example {
   use SplSubjectTrait;
 }
 ```
-2. [ArrayIterator example](SplIterators/ArrayIterators.php) - example of using **ArrayIterator** in conjunction with:
+* [ArrayIterator example](SplIterators/ArrayIterators.php) - example of using **ArrayIterator** in conjunction with:
   1. **RecursiveArrayIterator**
   2. **CallbackFilterIterator**
   3. **LimitIterator**
@@ -47,8 +47,8 @@ Sample code from [ArrayIterators.php](SplIterators/ArrayIterators.php):
         $this->display($it4);
     }
 ```
-3. [SplObjectStorage example](SplObjectStorage/SplObjectStorageExample.php) - example of using **SplObjectStorage** with hashing, which can **simulate Java Set** in PHP.
-4. Funny example, how to destroy every application based on autoloading, without using: throw, exit, eval and other obvious functions:
+* [SplObjectStorage example](SplObjectStorage/SplObjectStorageExample.php) - example of using **SplObjectStorage** with hashing, which can **simulate Java Set** in PHP.
+* Funny example, how to destroy every application based on autoloading, without using: throw, exit, eval and other obvious functions:
 ```php
 spl_autoload_unregister("spl_autoload_call");
 ```
