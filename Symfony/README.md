@@ -1,10 +1,10 @@
 # Symfony 1.4
 ## How bind events using *sfEventDispatcher*
 Following example demostrates how to use *Symfony dispatcher* to:
-1. Connect custom event ('controller.test_index') to *MyListerers::lister* method
-2. Notify this event in *executeIndex* method in chosen place in code.
-3. Get caller object via *$event->getSubject()*
-4. Send array of arguments to the *listener()* method via *sfEvent* object
+  1. Connect custom event ('controller.test_index') to *MyListerers::lister* method
+  2. Notify this event in *executeIndex* method in chosen place in code.
+  3. Get caller object via *$event->getSubject()*
+  4. Send array of arguments to the *listener()* method via *sfEvent* object
 
 Example files are in [this directory](1.4/) <br />
 Controller file: <br />
