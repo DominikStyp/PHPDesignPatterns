@@ -13,7 +13,7 @@ namespace Generators;
  *
  * @author Dominik
  */
-class InlineArrayIteratonExample {
+class GeneratorsExample {
 
     static $arr = array();
     static $repeat = 300;
