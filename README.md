@@ -48,6 +48,9 @@ Sample code from [ArrayIterators.php](SplIterators/ArrayIterators.php):
     }
 ```
 * [SplObjectStorage example](SplObjectStorage/SplObjectStorageExample.php) - example of using **SplObjectStorage** with hashing, which can **simulate Java Set** in PHP.
+* [Generators vs Switch-Case vs Array] (Generators/InlineArrayIteratonExample.php) - example of using **Generators** in order to minimize memory usage, and prevent from generating big arrays.
+
+
 * Funny example, how to destroy every application based on autoloading, without using: throw, exit, eval and other obvious functions:
 ```php
 spl_autoload_unregister("spl_autoload_call");
