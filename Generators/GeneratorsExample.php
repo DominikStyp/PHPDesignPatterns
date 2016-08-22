@@ -65,7 +65,7 @@ class GeneratorsExample {
     }    
 }
 
-$obj = new InlineArrayIteratonExample();
+$obj = new GeneratorsExample();
 ############## Memory used: 137,672 ################ 
 if(empty($_GET['test'])){
     $_GET['test'] = '0';
