@@ -5,7 +5,10 @@ and even [**Customize PHP functions**](Closures#function-customizer), and predef
 as it's shown in the following example: <br />
 ```php
 $matches = array();
-$pregMatch = (new FunctionCustomizer('preg_match', 3))->setArgument(0, "#\d{2}#")->setArgumentRef(2, $matches)->getClosure();
+$pregMatch = (new FunctionCustomizer('preg_match', 3))
+             ->setArgument(0, "#\d{2}#")
+             ->setArgumentRef(2, $matches)
+             ->getClosure();
 /**
  *  To this closure we're gonna pass ONLY second argument (cause rest is already predefined).
  *  Isn't the following syntax clear, short and powerful ?
