@@ -63,6 +63,9 @@ if($m("abcd")){
 ```
 See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
 
+### Polymorphism with Closures
+To get more advanced example of how you can **chain Closures** in conjunction with **polymorphism** [Click Here](PolymorphismWithClosures.php)
+
 ### Summary 
 #### Pros:
  1. significantly shorter code
