@@ -4,7 +4,10 @@ require_once './FunctionCustomizer.php';
 //// example 1 - lets predefine preg_match ////
 
 $matches = array();
-$pregMatch = (new FunctionCustomizer('preg_match', 3))->setArgument(0, "#\d{2}#")->setArgumentRef(2, $matches)->getClosure();
+$pregMatch = (new FunctionCustomizer('preg_match', 3))
+             ->setArgument(0, "#\d{2}#")
+             ->setArgumentRef(2, $matches)
+             ->getClosure();
 /**
  * Step by step what have we done here:
  * - set default $matches array as reference variable for setArgumentRef()
