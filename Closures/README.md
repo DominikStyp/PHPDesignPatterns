@@ -66,11 +66,12 @@ See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
 ### Summary 
 #### Pros:
  1. significantly shorter code
- 2. less problems with refactoring methods (changing name or class that it belongs to)
- 3. less usage of built-in PHP functions (as now you can define them in reusable closures)
+ 2. more reusable code
+ 3. less problems with refactoring methods (changing name or class that it belongs to).
+ 4. less usage of built-in PHP functions (as now you can define them in reusable closures)
 
 #### Cons: 
  1. no IDE hints when using variables as closures
- 2. less readable code - since closures are custom, so programmer first must read its code to understand how it works
- 3. possible template variables overwriting problems in MVC frameworks (name clashes etc.)
+ 2. less understandable code - since closures are custom, so programmer first must read its code to understand how it works
+ 3. possible template variable overwrite problems in MVC frameworks (name clashes etc.)
  
