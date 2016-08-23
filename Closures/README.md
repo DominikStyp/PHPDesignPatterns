@@ -1,7 +1,7 @@
 # Closures
 ### Defining Closures
-We can also define closures without using any class.<br />
-Let's shorten built-in **strpos** usage: <br />
+Closure is a function (similar to the function in **JavaScript**) that can be assigned to the variable, and invoked in same way as method or regular function.
+Let's shorten built-in **strpos** usage with closure: <br />
 ```php
 $inStr = function($search, $subject = ""){ 
     static $_str = ""; 
