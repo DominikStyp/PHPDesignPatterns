@@ -1,31 +1,5 @@
-## Returning Closures
-This feature of PHP 5.4 this allows programmer to significantly shorten the code <br />
-Instead of using method calls everywhere, you can temporarily assign it to the variable <br />
-and use it without worrying to redeclare function: <br />
-```php
-class ReturningClosures {
-
-    private function getMatcher($regex){
-        return function($subjectString) use ($regex) {
-            return preg_match($regex,$subjectString);  
-        };
-    }
-    public function getDateMatcher(){
-        return $this->getMatcher("#^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$#");
-    }
-}
-```
-Let's see how we can use this class to create custom matcher stored **in variable** : <br />
-```php
-$obj = new ReturningClosures();
-$m = $obj->getDateMatcher();
-if($m("abcd")){
-    echo "first condition";
-} else if($m("1964-01-01 22:33:00")) {
-    echo "second condition";
-}
-```
-See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
+# Closures
+### Defining Closures
 We can also define closures without using any class.<br />
 Let's shorten built-in **strpos** usage: <br />
 ```php
@@ -60,6 +34,35 @@ if($inStr("ggg") && !$inStr("nii") && !$inStr("ooo")){
 }
 ```
 See the full example in [handyClosures.php](handyClosures.php)<br />
+### Returning Closures
+This feature of PHP 5.4 this allows programmer to significantly shorten the code <br />
+Instead of using method calls everywhere, you can temporarily assign it to the variable <br />
+and use it without worrying to redeclare function: <br />
+```php
+class ReturningClosures {
+
+    private function getMatcher($regex){
+        return function($subjectString) use ($regex) {
+            return preg_match($regex,$subjectString);  
+        };
+    }
+    public function getDateMatcher(){
+        return $this->getMatcher("#^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$#");
+    }
+}
+```
+Let's see how we can use this class to create custom matcher stored **in variable** : <br />
+```php
+$obj = new ReturningClosures();
+$m = $obj->getDateMatcher();
+if($m("abcd")){
+    echo "first condition";
+} else if($m("1964-01-01 22:33:00")) {
+    echo "second condition";
+}
+```
+See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
+
 ### Summary 
 #### Pros:
  1. significantly shorter code
