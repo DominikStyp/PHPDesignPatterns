@@ -18,6 +18,12 @@ if($pregMatch("str22")) {
     // Just like Perl does it with magical _$ var.
     var_dump($matches); 
 }
+if($pregMatch("str")){
+    var_dump($matches);
+}
+if($pregMatch("str333asdf")){
+    var_dump($matches);
+}
 ```
 ## SPL (Standard PHP Library) use examples
 * [SplObserver example](SplObserver/Subject.php) - uses implementation of the **SplObserver** class of **Standard PHP Library**.
