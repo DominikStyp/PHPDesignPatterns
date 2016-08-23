@@ -9,7 +9,7 @@ class ReturningClosures {
     /**
      * This method returns prepared "macher" that will check every $subjectString against the defined $regex
      * @param type $regex
-     * @return Closure
+     * @return callable
      */
     private function getMatcher($regex){
         return function($subjectString) use ($regex) {
@@ -19,7 +19,7 @@ class ReturningClosures {
     /**
      * Returns matcher that will check if string is date in format:
      * YYYY-mm-dd HH:ii:ss
-     * @return Closure
+     * @return callable
      */
     public function getDateMatcher(){
         return $this->getMatcher("#^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$#");
