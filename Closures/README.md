@@ -1,5 +1,5 @@
 # Closures
-### Defining Closures
+### Defining PHP Closures
 Closure is a function (similar to the function in **JavaScript**) that can be assigned to the variable, and invoked in same way as method or regular function.
 Let's shorten built-in **strpos** usage with closure: <br />
 ```php
@@ -63,7 +63,7 @@ if($m("abcd")){
 ```
 See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
 
-### Polymorphism with Closures
+### Polymorphism with PHP Closures
 To get more advanced example of how you can **chain Closures** in conjunction with **polymorphism** [Click Here](PolymorphismWithClosures.php)
 
 ### Summary 
