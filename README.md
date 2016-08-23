@@ -1,4 +1,22 @@
 # This repo contains quick and useful examples in PHP
+## Closures 
+How to effectively use [**PHP Closures**](Closures), returning them from the methods, <br />
+and even [**Customize PHP functions**](Closures#function-customizer), and predefine their arguments, <br /> 
+as it's shown in the following example: <br />
+```php
+$matches = array();
+$pregMatch = (new FunctionCustomizer('preg_match', 3))->setArgument(0, "#\d{2}#")->setArgumentRef(2, $matches)->getClosure();
+/**
+ *  To this closure we're gonna pass ONLY second argument (cause rest is already predefined).
+ *  Isn't the following syntax clear, short and powerful ?
+ */
+if($pregMatch("str22")) {
+    // Magically we have our matches variable set via reference
+    // Just like Perl does it with magical _$ var.
+    var_dump($matches); 
+}
+```
+## SPL (Standard PHP Library) use examples
 * [SplObserver example](SplObserver/Subject.php) - uses implementation of the **SplObserver** class of **Standard PHP Library**.
 This example shows how **NOT TO COPY** the same implementation code all over again in every class where you want to use **SplObserver**.
 For that purpose I've used [PHP Traits](http://php.net/manual/en/language.oop5.traits.php) functionality, so every class that has to implement this interface just need to have the following statement: 
