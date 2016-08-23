@@ -65,6 +65,7 @@ See the full example in [handyClosures.php](handyClosures.php)<br />
  1. significantly shorter code
  2. less problems with refactoring methods (changing name or class that it belongs to)
  3. less usage of built-in PHP functions (as now you can define them in reusable closures)
+
 #### Cons: 
  1. no IDE hints when using variables as closures
  2. less readable code - since closures are custom, so programmer first must read its code to understand how it works
