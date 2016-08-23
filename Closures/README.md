@@ -51,11 +51,11 @@ if($inStr("iii",$myStr)){
     echo "cond 1 <br />";
 }
 // here variable $myStr is held in static $_str, and reused in this call
-if($inStr("ooo")){
+if($inStr("ooo") && $inStr("stringg") && $inStr("soo")){
     echo "cond 2 <br />";
 }
 // ... again second argument will be reused in the following call
-if($inStr("ggg")){
+if($inStr("ggg") && !$inStr("nii") && !$inStr("ooo")){
     echo "cond 3 <br />";
 }
 ```
