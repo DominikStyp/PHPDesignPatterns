@@ -58,10 +58,53 @@ $m = $obj->getDateMatcher();
 if($m("abcd")){
     echo "first condition";
 } else if($m("1964-01-01 22:33:00")) {
-    echo "second condition";
+    echo "second condition"; // matched !
 }
 ```
 See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
+
+### Function customizer
+To show how REALLY powerful closures are, I've written [FunctionCustomizer class](FunctionCustomizer.php), <br />
+which has ability to predefine ANY function argument, and make invocations only with one argument that is really changing. <br />
+Let's consider following problem. We wish to check regular expression for multiple strings like this: <br />
+```php
+if(preg_match("#\d{2}#","str22", $matches)){
+  var_dump($matches);
+}
+if(preg_match("#\d{2}#","str", $matches)){
+  var_dump($matches);
+}
+if(preg_match("#\d{2}#","str333asdf", $matches)){
+  var_dump($matches);
+}
+```
+... the best we can do to shorten the code is to store regular expression in some variable, <br />
+but it doesn't resolve 3 mandatory parameters to pass every time, and pretty long syntax. <br />
+I would be great if we could **customize this (and others) php functions** so we could predefine other parameters, <br />
+and pass only one that is really changing ? <br />
+Take a look at this: <br />
+```php
+$matches = array();
+$pregMatch = (new FunctionCustomizer('preg_match', 3))->setArgument(0, "#\d{2}#")->setArgumentRef(2, $matches)->getClosure();
+/**
+ *  To this closure we're gonna pass ONLY second argument (cause rest is already predefined).
+ *  Isn't the following syntax clear, short and powerful ?
+ */
+if($pregMatch("str22")) {
+    // Magically we have our matches variable set via reference
+    // Just like Perl does it with magical _$ var.
+    var_dump($matches); 
+}
+if($pregMatch("str")){
+    var_dump($matches);
+}
+if($pregMatch("str333asdf")){
+    var_dump($matches);
+}
+```
+Whole example is in file [functionCustomizerExample1.php](functionCustomizerExample1.php) <br />
+To see how it works, take a look at [class FunctionCustomizer](FunctionCustomizer.php) <br />
+
 
 ### Polymorphism with PHP Closures
 To get more advanced example of how you can **chain Closures** in conjunction with **polymorphism** [Click Here](PolymorphismWithClosures.php)
