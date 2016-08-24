@@ -5,6 +5,7 @@
  * to write code faster, and shorter
  *
  * @author Dominik
+ * @url https://github.com/DominikStyp
  */
 class ReturningClosures {
     /**
