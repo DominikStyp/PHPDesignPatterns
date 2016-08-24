@@ -1,4 +1,4 @@
-# Closures
+# PHP Closures
 ### Defining PHP Closures
 Closure is a function (similar to the function in **JavaScript**) that can be assigned to the variable, and invoked in same way as method or regular function.
 Let's shorten built-in **strpos** usage with closure: <br />
@@ -34,7 +34,7 @@ if($inStr("ggg") && !$inStr("nii") && !$inStr("ooo")){
 }
 ```
 See the full example in [handyClosures.php](handyClosures.php)<br />
-### Returning Closures
+### Returning Closures in PHP
 This feature of PHP 5.4 this allows programmer to significantly shorten the code <br />
 Instead of using method calls everywhere, you can temporarily assign it to the variable <br />
 and use it without worrying to redeclare function: <br />
@@ -63,7 +63,7 @@ if($m("abcd")){
 ```
 See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
 
-### Function customizer
+### PHP Function customizer
 To show how REALLY powerful closures are, I've written [FunctionCustomizer class](FunctionCustomizer.php), <br />
 which has ability to predefine ANY function argument, and make invocations only with one argument that is really changing. <br />
 Let's consider following problem. We wish to check regular expression for multiple strings like this: <br />
