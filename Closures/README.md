@@ -107,6 +107,14 @@ if($pregMatch("str333asdf")){
 ```
 Whole example is in file [functionCustomizerExample1.php](functionCustomizerExample1.php) <br />
 To see how it works, take a look at [class FunctionCustomizer](FunctionCustomizer.php) <br />
+You should also ask: What about performance? <br />
+For now single closure invocation vs regular function invocation is about 5x slower, since it's user-defined function, <br />
+and not built-in, written in C function. However difference is significant for more than 100 000 invocations. <br />
+<pre>
+Loop with 100 000 iterations gave me following results:
+Built-in preg_match: 0.15401983261108 sec
+Closure in variable: 0.56257104873657 sec
+</pre>
 
 
 ### Polymorphism with PHP Closures

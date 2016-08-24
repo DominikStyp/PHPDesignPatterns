@@ -5,6 +5,17 @@
  *
  * @author Dominik
  * @url https://github.com/DominikStyp
+ * 
+ * Example: 
+ * <pre>
+ *  <code>
+ *  $pregMatch = (new FunctionCustomizer('preg_match', 3))
+             ->setArgument(0, "#\d{2}#")
+             ->setArgumentRef(2, $matches0)
+             ->getClosure();
+ *  if($pregMatch("sdf22x")){ }
+ *  </code>
+ * </pre>
  */
 class FunctionCustomizer {
     
@@ -54,7 +65,10 @@ class FunctionCustomizer {
         $this->arguments = $args;
     }
     
-    
+    /**
+     * Returns closure ready to use in function-like fashion
+     * @return callable
+     */
     public function getClosure(){
         $arguments = $this->arguments;
         $functionName = $this->functionName;
