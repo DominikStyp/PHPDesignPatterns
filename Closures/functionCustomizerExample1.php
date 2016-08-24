@@ -4,6 +4,12 @@ require_once './FunctionCustomizer.php';
 //// example 1 - lets predefine preg_match ////
 
 $matches = array();
+/**
+ * Notice that only FIRST and THIRD argument are predefined.
+ * SECOND argument is gonna be automatically passed from closure call like this:
+ * preg_match(PREDEFINED("#\d{2}#"), CLOSURE("str22"), PREDEFINED_REF($matches))
+ * 
+ */
 $pregMatch = (new FunctionCustomizer('preg_match', 3))
              ->setArgument(0, "#\d{2}#")
              ->setArgumentRef(2, $matches)
