@@ -61,9 +61,11 @@ class FunctionCustomizer {
     /**
      * Array of predefined arguments for the function
      * @param array $args
+     * @return \FunctionCustomizer
      */
     public function setArguments(array $args){
         $this->arguments = $args;
+        return $this;
     }
     
     /**
