@@ -10,9 +10,9 @@
  * <pre>
  *  <code>
  *  $pregMatch = (new FunctionCustomizer('preg_match', 3))
-             ->setArgument(0, "#\d{2}#")
-             ->setArgumentRef(2, $matches0)
-             ->getClosure();
+ *           ->setArgument(0, "#\d{2}#")
+ *           ->setArgumentRef(2, $matches0)
+ *           ->getClosure();
  *  if($pregMatch("sdf22x")){ }
  *  </code>
  * </pre>
@@ -36,7 +36,7 @@ class FunctionCustomizer {
     
     /**
      * Set predefined argument for the function
-     * @param int $agrIndex - zero index parameter position
+     * @param int $agrIndex - zero-indexed parameter position
      * @param mixed $argValue - parameter value
      * @return \FunctionCustomizer
      */
@@ -48,8 +48,8 @@ class FunctionCustomizer {
     /**
      * Sets predefined argument passed by reference 
      * Can be used in preg_match where array of matches is passed by reference.
-     * @param int $agrIndex
-     * @param reference $argValue
+     * @param int $agrIndex - zero-indexed parameter position
+     * @param reference $argValue - parameter value
      * @return \FunctionCustomizer
      */
     public function setArgumentRef($agrIndex, & $argValue){
