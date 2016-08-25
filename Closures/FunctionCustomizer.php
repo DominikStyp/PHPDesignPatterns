@@ -79,9 +79,9 @@ class FunctionCustomizer {
         $arguments = array_fill(0, $numArgs, null);
         /**
         *   REMARK:
-        *   Since call_user_func_array() doesn't care what argument index is, it takes them by FIFO queue.
-        *   For example array(2 => $arr, 0 => "#\d{2}#", 1 => "str22xx") won't work for the preg_match call,
-        *   because arguments MUST BE pushed into array in the correct order.
+        *   Since call_user_func_array() doesn't care what argument index is (it takes them by FIFO queue),
+        *   array of arguments passed to this function MUST BE pushed in the correct order.
+        *   For example array(2 => $arr, 0 => "#\d{2}#", 1 => "str22xx") won't work for the preg_match call, because push order is wrong.
         *   That's the one reason why there's array_fill() first to fill up indexes in correct order.
         */
         foreach($this->arguments as $key => & $val){
@@ -104,6 +104,8 @@ class FunctionCustomizer {
      * Written only to be (a bit) faster, than one generated via getClosure()
      * but it has fixed number of arguments that you can pass,
      * and you have to give it a position
+     * 
+     * @param int $arg1Position - zero-indexed position of the first closure argument
      * @return callable
      */
     public function getClosureWithOneArg($arg1Position = 0){
@@ -120,7 +122,8 @@ class FunctionCustomizer {
     
     /**
      * Returns closure with two mandatory arguments.
-     * 
+     * @param int $arg1Position - zero-indexed position of the first closure argument
+     * @param int $arg2Position - zero-indexed position of the second closure argument
      * @return callable
      */
     public function getClosureWithTwoArgs($arg1Position = 0, $arg2Position = 1){

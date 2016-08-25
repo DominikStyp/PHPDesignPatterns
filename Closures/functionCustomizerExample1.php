@@ -17,7 +17,7 @@ $pregMatch = (new FunctionCustomizer('preg_match', 3))
 /**
  * Step by step what have we done here:
  * - set default $matches array as reference variable for setArgumentRef()
- * - set function as built-in preg_match, and set defined number of arguments to 3
+ * - set function as built-in preg_match, and set passed number of arguments to 3 (closure + predefined arguments)
  * - set first argument of preg_match to  "#\d{2}#"
  * - set third argument of preg_match as reference variable $matches where possible matches will be stored
  * 
@@ -25,7 +25,7 @@ $pregMatch = (new FunctionCustomizer('preg_match', 3))
  */
 if($pregMatch("str22")) {
     echo "<br />", "cond 1 OK", "<br />";
-    var_dump($matches); //and magically we have our matches variable set via reference
+    var_dump($matches); //and magically we have our matches variable set via reference in setArgumentRef()
 }
 if($pregMatch("str")){
     echo "<br />", "cond 2 OK", "<br />";
