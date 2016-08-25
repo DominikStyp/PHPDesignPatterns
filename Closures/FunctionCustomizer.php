@@ -122,6 +122,7 @@ class FunctionCustomizer {
     
     /**
      * Returns closure with two mandatory arguments.
+     * Written only to be (a bit) faster, than one generated via getClosure()
      * @param int $arg1Position - zero-indexed position of the first closure argument
      * @param int $arg2Position - zero-indexed position of the second closure argument
      * @return callable
@@ -138,5 +139,30 @@ class FunctionCustomizer {
               return call_user_func_array($functionName, $arguments);
         };
     }
+    
+    
+    /**
+     * Returns closure with two mandatory arguments.
+     * Written only to be (a bit) faster, than one generated via getClosure()
+     * @param int $arg1Position - zero-indexed position of the first closure argument
+     * @param int $arg2Position - zero-indexed position of the second closure argument
+     * @param int $arg3Position - zero-indexed position of the third closure argument
+     * @return callable
+     */
+    public function getClosureWithThreeArgs($arg1Position = 0, $arg2Position = 1, $arg3Position = 2){
+        $functionName = $this->functionName;
+        $arguments = array_fill(0, $this->numArgs, null);
+        foreach($this->arguments as $key => & $val){
+                $arguments[$key] = & $val;
+        }
+        return function($arg1, $arg2, $arg3) use ($functionName, $arguments, $arg1Position, $arg2Position, $arg3Position){
+              $arguments[$arg1Position] = & $arg1;
+              $arguments[$arg2Position] = & $arg2;
+              $arguments[$arg3Position] = & $arg3;
+              return call_user_func_array($functionName, $arguments);
+        };
+    }
+    
+    
 }
 
