@@ -15,7 +15,7 @@ $pregMatch = (new FunctionCustomizer('preg_match', 3))
  */
 if($pregMatch("str22")) {
     // Magically we have our matches variable set via reference
-    // Just like Perl does it with magical _$ var.
+    // Just like Perl does it with magical $_ var.
     var_dump($matches); 
 }
 if($pregMatch("str")){
