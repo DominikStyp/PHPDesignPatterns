@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BuiltinFunctionCustomizer
+ * FunctionCustomizer
  *
  * @author Dominik
  * @url https://github.com/DominikStyp
