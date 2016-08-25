@@ -26,8 +26,9 @@ class FunctionCustomizer {
     /**
      * 
      * @param string $functionName - name of built-in OR user-defined function 
-     * @param int $numArgs - number of arguments that you want to pass to the function
-     *                       this should be sum of: closure args + defined args
+     * @param int $numArgs - number of arguments that you want to pass to the function,
+     *                       (NOT THE NUMBER OF ARGUMENTS WHICH FUNCTION HAS AVAILABLE)
+     *                       so this should be sum of: closure args + predefined args
      */
     public function __construct($functionName, $numArgs){
         $this->functionName = $functionName;
@@ -67,23 +68,69 @@ class FunctionCustomizer {
     
     /**
      * Returns closure ready to use in function-like fashion
+     * 
      * @return callable
      */
     public function getClosure(){
-        $arguments = $this->arguments;
         $functionName = $this->functionName;
         $numArgs = $this->numArgs;
+        $arguments = array_fill(0, $numArgs, null);
+        /**
+        *   REMARK:
+        *   Since call_user_func_array() doesn't care what argument index is, it takes them by FIFO queue.
+        *   For example array(2 => $arr, 0 => "#\d{2}#", 1 => "str22xx") won't work for the preg_match call,
+        *   because arguments MUST BE pushed into array in the correct order.
+        *   That's the one reason why there's array_fill() first to fill up indexes in correct order.
+        */
+        foreach($this->arguments as $key => & $val){
+                $arguments[$key] = & $val;
+        }
         return function() use ($functionName, $numArgs, $arguments){
             $closureArgs = func_get_args();
-            $passedArgs = array();
-            for($i = 0; $i < $numArgs; $i++){
-                if(isset($arguments[$i])){
-                   $passedArgs[] = & $arguments[$i];
-                } else {
-                    $passedArgs[] = & array_shift($closureArgs);
+            for($i = 0, $j = 0; $i < $numArgs; $i++){
+                if(!isset($arguments[$i])){
+                   $arguments[$i] = & $closureArgs[$j++];
                 }
             }
-            return call_user_func_array($functionName, $passedArgs);
+            return call_user_func_array($functionName, $arguments);
+        };
+    }
+    
+    
+    /**
+     * Returns closure with only one argument.
+     * Written only to be (a bit) faster, than one generated via getClosure()
+     * but it has fixed number of arguments that you can pass,
+     * and you have to give it a position
+     * @return callable
+     */
+    public function getClosureWithOneArg($arg1Position = 0){
+        $functionName = $this->functionName;
+        $arguments = array_fill(0, $this->numArgs, null);
+        foreach($this->arguments as $key => & $val){
+                $arguments[$key] = & $val;
+        }
+        return function($arg1) use ($functionName, $arguments, $arg1Position){
+              $arguments[$arg1Position] = & $arg1;
+              return call_user_func_array($functionName, $arguments);
+        };
+    }
+    
+    /**
+     * Returns closure with two mandatory arguments.
+     * 
+     * @return callable
+     */
+    public function getClosureWithTwoArgs($arg1Position = 0, $arg2Position = 1){
+        $functionName = $this->functionName;
+        $arguments = array_fill(0, $this->numArgs, null);
+        foreach($this->arguments as $key => & $val){
+                $arguments[$key] = & $val;
+        }
+        return function($arg1, $arg2) use ($functionName, $arguments, $arg1Position, $arg2Position){
+              $arguments[$arg1Position] = & $arg1;
+              $arguments[$arg2Position] = & $arg2;
+              return call_user_func_array($functionName, $arguments);
         };
     }
 }
