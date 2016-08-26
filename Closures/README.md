@@ -64,7 +64,7 @@ if($m("abcd")){
 See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
 
 ### PHP Function customizer
-To show how REALLY powerful closures are, I've written [FunctionCustomizer class](FunctionCustomizer.php), <br />
+To show how REALLY powerful closures are, I've written [FunctionCustomizer class](FunctionCustomizer/FunctionCustomizer.php), <br />
 which has ability to predefine ANY function argument, and make invocations only with one argument that is really changing. <br />
 Let's consider following problem. We wish to check regular expression for multiple strings like this: <br />
 ```php
@@ -81,10 +81,16 @@ if(preg_match("#\d{2}#","str333asdf", $matches)){
 ... the best we can do to shorten the code is to store regular expression in some variable, <br />
 but it doesn't resolve 3 mandatory parameters to pass every time, and pretty long syntax. <br />
 I would be great if we could **customize this (and others) php functions** so we could predefine other parameters, <br />
-and pass only one that is really changing ? <br />
+and pass ONLY that ones, that are really changing ? <br />
 Take a look at this: <br />
 ```php
 $matches = array();
+/**
+ * IMPORTANT NOTES:
+ * 1) referenced variables (like $matches in this example) MUST be defined, and can't be null.
+ * 2) if you pass referenced variable to user-defined function (or static method) MAKE SURE that "&" precedes it.
+ *
+ */
 $pregMatch = (new FunctionCustomizer('preg_match', 3))
               ->setArgument(0, "#\d{2}#")
               ->setArgumentRef(2, $matches)
@@ -96,21 +102,21 @@ $pregMatch = (new FunctionCustomizer('preg_match', 3))
 if($pregMatch("str22")) {
     // Magically we have our matches variable set via reference
     // Just like Perl does it with magic $_ variable.
-    var_dump($matches); 
+    var_dump($matches); // 22
 }
 if($pregMatch("str")){
     var_dump($matches);
 }
 if($pregMatch("str333asdf")){
-    var_dump($matches);
+    var_dump($matches); // 33
 }
 ```
-Whole example is in file [functionCustomizerExample1.php](functionCustomizerExample1.php) <br />
-To see how it works, take a look at [class FunctionCustomizer](FunctionCustomizer.php) <br />
+Whole example is in file [functionCustomizerExample1.php](FunctionCustomizer/functionCustomizerExample1.php) <br />
+More examples are in [FunctionCustomizer](FunctionCustomizer/) directory <br />
 You should also ask: What about performance? <br />
 For now single closure invocation vs regular function invocation is about 2x slower, since it's user-defined function, <br />
 and not built-in, written in C function. However difference is significant for more than 100 000 invocations. <br />
-Result of the test from [functionCustomizerPerformanceTest.php](functionCustomizerPerformanceTest.php) <br />
+Test can be found [HERE](FunctionCustomizer/) <br />
 <pre>
 Loop with 100 000 iterations gave me following results:
 Built-in preg_match: 0.15401911735535 sec
