@@ -33,28 +33,55 @@ class FunctionCustomizer {
     public function __construct($functionName, $numArgs){
         $this->functionName = $functionName;
         $this->numArgs = $numArgs;
+        /**
+        *   REMARK:
+        *   Since call_user_func_array() doesn't care what argument index is (it gets them by FIFO queue),
+        *   array of arguments passed to this function MUST BE pushed in the correct order.
+        *   For example array(2 => $arr, 0 => "#\d{2}#", 1 => "str22xx") won't work for the preg_match call, because push order is wrong.
+        *   That's the one reason why there's array_fill() first to fill up indexes in correct order.
+        */
+        $this->arguments = array_fill(0, $numArgs, null);
+    }
+    
+    /**
+     * Checks wheter index is correct number
+     * @param int $argIndex
+     * @throws Exception
+     */
+    private function checkIndex($argIndex){
+        if($argIndex > ($this->numArgs - 1)){
+            throw new Exception("argument index ($argIndex) is bigger than defined number of arguments in the constructor ({$this->numArgs})");
+        }
+        if(!is_numeric($argIndex)){
+            throw new Exception("argIndex: $argIndex is not a number");
+        }
+        if($argIndex < 0){
+            throw new Exception("argIndex can't be less than 0");
+        }
     }
     
     /**
      * Set predefined argument for the function
-     * @param int $agrIndex - zero-indexed parameter position
+     * @param int $argIndex - zero-indexed parameter position
      * @param mixed $argValue - parameter value
      * @return \FunctionCustomizer
      */
-    public function setArgument($agrIndex, $argValue){
-        $this->arguments[$agrIndex] = $argValue;
+    public function setArgument($argIndex, $argValue){
+        $this->checkIndex($argIndex);
+        $this->arguments[$argIndex] = $argValue;
         return $this;
     }
     
     /**
      * Sets predefined argument passed by reference 
      * Can be used in preg_match where array of matches is passed by reference.
-     * @param int $agrIndex - zero-indexed parameter position
+     * @param int $argIndex - zero-indexed parameter position
      * @param reference $argValue - parameter value
      * @return \FunctionCustomizer
      */
-    public function setArgumentRef($agrIndex, & $argValue){
-        $this->arguments[$agrIndex] = & $argValue;
+    public function setArgumentRef($argIndex, & $argValue){
+        $this->checkIndex($argIndex);
+        $this->arguments[$argIndex] = & $argValue;
         return $this;
     }
     
@@ -76,17 +103,7 @@ class FunctionCustomizer {
     public function getClosure(){
         $functionName = $this->functionName;
         $numArgs = $this->numArgs;
-        $arguments = array_fill(0, $numArgs, null);
-        /**
-        *   REMARK:
-        *   Since call_user_func_array() doesn't care what argument index is (it takes them by FIFO queue),
-        *   array of arguments passed to this function MUST BE pushed in the correct order.
-        *   For example array(2 => $arr, 0 => "#\d{2}#", 1 => "str22xx") won't work for the preg_match call, because push order is wrong.
-        *   That's the one reason why there's array_fill() first to fill up indexes in correct order.
-        */
-        foreach($this->arguments as $key => & $val){
-                $arguments[$key] = & $val;
-        }
+        $arguments = & $this->arguments;
         return function() use ($functionName, $numArgs, $arguments){
             $closureArgs = func_get_args();
             for($i = 0, $j = 0; $i < $numArgs; $i++){
@@ -110,10 +127,7 @@ class FunctionCustomizer {
      */
     public function getClosureWithOneArg($arg1Position = 0){
         $functionName = $this->functionName;
-        $arguments = array_fill(0, $this->numArgs, null);
-        foreach($this->arguments as $key => & $val){
-                $arguments[$key] = & $val;
-        }
+        $arguments = & $this->arguments;
         return function($arg1) use ($functionName, $arguments, $arg1Position){
               $arguments[$arg1Position] = & $arg1;
               return call_user_func_array($functionName, $arguments);
@@ -129,10 +143,7 @@ class FunctionCustomizer {
      */
     public function getClosureWithTwoArgs($arg1Position = 0, $arg2Position = 1){
         $functionName = $this->functionName;
-        $arguments = array_fill(0, $this->numArgs, null);
-        foreach($this->arguments as $key => & $val){
-                $arguments[$key] = & $val;
-        }
+        $arguments = & $this->arguments;
         return function($arg1, $arg2) use ($functionName, $arguments, $arg1Position, $arg2Position){
               $arguments[$arg1Position] = & $arg1;
               $arguments[$arg2Position] = & $arg2;
@@ -151,10 +162,7 @@ class FunctionCustomizer {
      */
     public function getClosureWithThreeArgs($arg1Position = 0, $arg2Position = 1, $arg3Position = 2){
         $functionName = $this->functionName;
-        $arguments = array_fill(0, $this->numArgs, null);
-        foreach($this->arguments as $key => & $val){
-                $arguments[$key] = & $val;
-        }
+        $arguments = & $this->arguments;
         return function($arg1, $arg2, $arg3) use ($functionName, $arguments, $arg1Position, $arg2Position, $arg3Position){
               $arguments[$arg1Position] = & $arg1;
               $arguments[$arg2Position] = & $arg2;
