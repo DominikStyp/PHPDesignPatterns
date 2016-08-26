@@ -1,6 +1,6 @@
 <?php
 
-require_once './FunctionCustomizer.php';
+require_once dirname(__FILE__).'/FunctionCustomizer.php';
 //// example 1 - lets predefine preg_match ////
 function echoTime($begin){
     echo "<br />Code took: ".((microtime(true)-$begin))." seconds";

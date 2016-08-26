@@ -1,6 +1,6 @@
 <?php
 
-require_once './FunctionCustomizer.php';
+require_once dirname(__FILE__).'/FunctionCustomizer.php';
 
 $matches = array();
 
