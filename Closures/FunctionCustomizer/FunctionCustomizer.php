@@ -19,19 +19,20 @@
  */
 class FunctionCustomizer {
     
-    private $functionName;
+    private $mixedCallable;
     private $numArgs;
     private $arguments = array();
     
     /**
      * 
-     * @param string $functionName - name of built-in OR user-defined function 
+     * @param string|array $mixedCallable - name of function | static method | array($object,'method')
+     *                                      ex. 'myFunction', 'MyClass::myMethod', array($myObject,'myMethod')
      * @param int $numArgs - number of arguments that you want to pass to the function,
      *                       (NOT THE NUMBER OF ARGUMENTS WHICH FUNCTION HAS AVAILABLE)
      *                       so this should be sum of: closure args + predefined args
      */
-    public function __construct($functionName, $numArgs){
-        $this->functionName = $functionName;
+    public function __construct($mixedCallable, $numArgs){
+        $this->mixedCallable = $mixedCallable;
         $this->numArgs = $numArgs;
         /**
         *   REMARK:
@@ -101,17 +102,17 @@ class FunctionCustomizer {
      * @return callable
      */
     public function getClosure(){
-        $functionName = $this->functionName;
+        $mixedCallable = $this->mixedCallable;
         $numArgs = $this->numArgs;
         $arguments = & $this->arguments;
-        return function() use ($functionName, $numArgs, $arguments){
+        return function() use ($mixedCallable, $numArgs, $arguments){
             $closureArgs = func_get_args();
             for($i = 0, $j = 0; $i < $numArgs; $i++){
                 if(!isset($arguments[$i])){
                    $arguments[$i] = & $closureArgs[$j++];
                 }
             }
-            return call_user_func_array($functionName, $arguments);
+            return call_user_func_array($mixedCallable, $arguments);
         };
     }
     
@@ -126,11 +127,11 @@ class FunctionCustomizer {
      * @return callable
      */
     public function getClosureWithOneArg($arg1Position = 0){
-        $functionName = $this->functionName;
+        $mixedCallable = $this->mixedCallable;
         $arguments = & $this->arguments;
-        return function($arg1) use ($functionName, $arguments, $arg1Position){
+        return function($arg1) use ($mixedCallable, $arguments, $arg1Position){
               $arguments[$arg1Position] = & $arg1;
-              return call_user_func_array($functionName, $arguments);
+              return call_user_func_array($mixedCallable, $arguments);
         };
     }
     
@@ -142,12 +143,12 @@ class FunctionCustomizer {
      * @return callable
      */
     public function getClosureWithTwoArgs($arg1Position = 0, $arg2Position = 1){
-        $functionName = $this->functionName;
+        $mixedCallable = $this->mixedCallable;
         $arguments = & $this->arguments;
-        return function($arg1, $arg2) use ($functionName, $arguments, $arg1Position, $arg2Position){
+        return function($arg1, $arg2) use ($mixedCallable, $arguments, $arg1Position, $arg2Position){
               $arguments[$arg1Position] = & $arg1;
               $arguments[$arg2Position] = & $arg2;
-              return call_user_func_array($functionName, $arguments);
+              return call_user_func_array($mixedCallable, $arguments);
         };
     }
     
@@ -161,13 +162,13 @@ class FunctionCustomizer {
      * @return callable
      */
     public function getClosureWithThreeArgs($arg1Position = 0, $arg2Position = 1, $arg3Position = 2){
-        $functionName = $this->functionName;
+        $mixedCallable = $this->mixedCallable;
         $arguments = & $this->arguments;
-        return function($arg1, $arg2, $arg3) use ($functionName, $arguments, $arg1Position, $arg2Position, $arg3Position){
+        return function($arg1, $arg2, $arg3) use ($mixedCallable, $arguments, $arg1Position, $arg2Position, $arg3Position){
               $arguments[$arg1Position] = & $arg1;
               $arguments[$arg2Position] = & $arg2;
               $arguments[$arg3Position] = & $arg3;
-              return call_user_func_array($functionName, $arguments);
+              return call_user_func_array($mixedCallable, $arguments);
         };
     }
     

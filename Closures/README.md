@@ -112,6 +112,16 @@ if($pregMatch("str333asdf")){
 }
 ```
 Whole example is in file [functionCustomizerExample1.php](FunctionCustomizer/functionCustomizerExample1.php) <br />
+As a callable you can also pass a **static method** like this: <br />
+```php
+// see functionCustomizerExample3.php
+$customizerObj = new FunctionCustomizer('MyClass::myMethod', 3);
+```
+And **object with instance method** like this: <br />
+```php
+// see functionCustomizerExample4.php
+$customizerObj = new FunctionCustomizer(array(new MyStyler(),'styleIt'), 3);
+```
 More examples are in [FunctionCustomizer](FunctionCustomizer/) directory <br />
 You should also ask: What about performance? <br />
 For now single closure invocation vs regular function invocation is about 2x slower, since it's user-defined function, <br />
