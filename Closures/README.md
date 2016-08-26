@@ -64,7 +64,7 @@ if($m("abcd")){
 See the full example in [ReturningClosures.php](ReturningClosures.php)<br />
 
 ### PHP Function customizer
-To show how REALLY powerful closures are, I've written [FunctionCustomizer class](FunctionCustomizer/FunctionCustomizer.php), <br />
+To show how REALLY powerful closures are, I've written [FunctionCustomizer](FunctionCustomizer/FunctionCustomizer.php), <br />
 which has ability to predefine ANY function argument, and make invocations only with one argument that is really changing. <br />
 Let's consider following problem. We wish to check regular expression for multiple strings like this: <br />
 ```php
