@@ -16,7 +16,7 @@ class ApplicationAPI {
     }
     /**
      * Methods gets instance of the UserClass via singleton (only one instance is possible)
-     * We can have many impelementations of the UserClass but every one must implement User interface
+     * We can have many implementations of the UserClass but every one must implement User interface
      * @return \User
      */
     public static function getUser(){
@@ -31,15 +31,15 @@ class ApplicationAPI {
         }
         return self::$currentUser;
     }
-    
+
     public static function postMessage($message){
         self::getUser()->postMessage($message);
     }
-    
+
     public static function logout(){
         self::getUser()->logout();
     }
-    
+
     public static function login($username, $password){
         self::getUser()->login($username, $password);
     }

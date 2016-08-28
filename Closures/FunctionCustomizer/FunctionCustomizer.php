@@ -45,7 +45,7 @@ class FunctionCustomizer {
     }
     
     /**
-     * Checks wheter index is correct number
+     * Checks whether index is correct number
      * @param int $argIndex
      * @throws Exception
      */
@@ -77,7 +77,7 @@ class FunctionCustomizer {
      * Sets predefined argument passed by reference 
      * Can be used in preg_match where array of matches is passed by reference.
      * @param int $argIndex - zero-indexed parameter position
-     * @param reference $argValue - parameter value
+     * @param & $argValue - parameter value
      * @return \FunctionCustomizer
      */
     public function setArgumentRef($argIndex, & $argValue){
