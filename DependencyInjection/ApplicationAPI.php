@@ -14,9 +14,11 @@ class ApplicationAPI {
     public static function changeNamespace($namespace){
         self::$apiNamespace = $namespace;
     }
+
     /**
      * Methods gets instance of the UserClass via singleton (only one instance is possible)
      * We can have many implementations of the UserClass but every one must implement User interface
+     * @throws Exception
      * @return \User
      */
     public static function getUser(){
