@@ -1,5 +1,5 @@
-## State Pattern Examples
-First examples of how to use **State Pattern** is very simple implementation of **UserState**. <br />
+## State Pattern Example
+First example of how to use **State Pattern** is very simple implementation of **UserState**. <br />
 Whole idea behind it is to **separate code for each object state to different class** and that's it. <br />
 [StatePatternExample.php](StatePatternExample.php)<br />
 Characteristics of this implementation:
