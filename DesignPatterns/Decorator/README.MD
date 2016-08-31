@@ -1,6 +1,6 @@
-## State Pattern Example
+## Decorator Pattern Example
 First example of how to use **Decorator Pattern** is very simple implementation of **Message**. <br />
-Whole idea behind it is to **nest objects** in **HAS-A relationship** <br />
+Whole idea behind it is to **nest objects** in **HAS-A relationship**, and invoke their methods in nested way. <br />
 Method call of the outer-most decorator should work like this:
 ```php
 $decorator2->getMessage( $decorator1->getMessage( $object->getMessage() ) );
