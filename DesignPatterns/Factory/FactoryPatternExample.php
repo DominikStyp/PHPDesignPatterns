@@ -88,7 +88,9 @@ class DatabaseFactory {
      * @throws Exception
      */
     public static function getDatabase($name){
-        $conf = self::$configs[$name];
+        // reference to avoid copy of the config array,
+        // we want instance to be stored there
+        $conf = & self::$configs[$name];
         if(empty($conf)){
             throw new Exception("Unknown database type!");
         }
@@ -116,7 +118,9 @@ class DatabaseFactory {
      * @throws Exception
      */
     public static function getDatabaseShorter($name){
-        $conf = self::$configs[$name];
+        // reference to avoid copy of the config array,
+        // we want instance to be stored there
+        $conf = & self::$configs[$name];
         if(empty($conf)){
             throw new Exception("Unknown database type!");
         }
@@ -129,6 +133,7 @@ class DatabaseFactory {
 }
 
 ///////////// example //////////
+$db = DatabaseFactory::getDatabaseShorter('mysql');
 $db = DatabaseFactory::getDatabaseShorter('mysql');
 $row = $db->fetchRow("SELECT * FROM table");
 print_r($row);
