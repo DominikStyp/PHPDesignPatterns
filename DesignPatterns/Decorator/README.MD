@@ -16,9 +16,10 @@ Characteristics of this implementation:
 ## Summary
 ### Pros
  1. very well separated code
- 2. possibility of mixing decorators in desired order
- 3. possibility to change main object's properties via outer-most decorator (through nesting method calls)
- 4. code that decorators share, can be easily separated to the trait
+ 2. completely decoupled classes (only common interface connects their behavior).
+ 3. possibility of mixing decorators in desired order
+ 4. possibility to change main object's properties via outer-most decorator (through nesting method calls)
+ 5. code that decorators share, can be easily separated to the trait
 
 ### Cons
  1. many classes and lots of code
