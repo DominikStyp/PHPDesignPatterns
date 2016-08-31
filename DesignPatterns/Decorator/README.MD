@@ -5,7 +5,7 @@ Method call of the outer-most decorator should work like this:
 ```php
 $decorator2->getMessage( $decorator1->getMessage( $object->getMessage() ) );
 ```
-[DecoratorPatternExample.php(DecoratorPatternExample.php)<br />
+[DecoratorPatternExample.php](DecoratorPatternExample.php)<br />
 Characteristics of this implementation:
  1. every decorator HAS an instance of the primary object (Message), OR other decorator
  2. decorator and primary object share common interface (MessageI), which defines methods to manipulate objects data
