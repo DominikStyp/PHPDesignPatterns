@@ -134,6 +134,6 @@ class DatabaseFactory {
 
 ///////////// example //////////
 $db = DatabaseFactory::getDatabaseShorter('mysql');
-$db = DatabaseFactory::getDatabaseShorter('mysql');
+$db = DatabaseFactory::getDatabaseShorter('mysql'); //notice that only one "connected" message will appear
 $row = $db->fetchRow("SELECT * FROM table");
 print_r($row);
