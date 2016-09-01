@@ -8,6 +8,7 @@ Characteristics of this implementation:
  3. GroupOfObjects contain array/collection of Component type objects
  4. GroupOfObjects class implements iteration over its components
  5. Good example of **Composite Pattern** are nested arrays:
+
  ```php
  $compositeArrays = [
    1, 2, [ 1, 2 ], 3, [ 1, [2, 3] ]
