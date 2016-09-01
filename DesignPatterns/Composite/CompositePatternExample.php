@@ -87,11 +87,13 @@ $phpPosts = new BlogPostGroup("PHP Posts");
 $php7Posts = new BlogPostGroup("PHP 7 Posts");
 $javaPosts = new BlogPostGroup("Java Posts");
 ////////
-$php7Posts->add(new BlogPost("1. PHP 7 Post", "1. PHP 7 is awesome"));
+$php7Posts->add($firstPhp7Post = new BlogPost("1. PHP 7 Post", "1. PHP 7 is awesome"));
 $php7Posts->add(new BlogPost("2. PHP 7 Post", "2. PHP 7 has new great features"));
 $phpPosts->add(new BlogPost("First PHP Post", "Setting up environment"));
 $phpPosts->add($php7Posts);
 $phpPosts->add(new BlogPost("Second PHP Post", "Learning OO PHP"));
-
 // __toString() does all the job for you
 echo $phpPosts;
+// if we don't need to display "1. PHP 7 Post" anymore just do
+$php7Posts->remove($firstPhp7Post);
+echo "<br />//////////////////////////////<br />", $phpPosts;
