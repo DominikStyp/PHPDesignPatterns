@@ -3,6 +3,10 @@
  * User: Dominik
  * Date: 2016-09-02
  * Time: 08:30
+ *
+ * In this example we can change pricing strategies however we want.
+ * We can also define 100 different strategies, and our PizzaNormal code won't grow much.
+ * Further more, we can change strategies after instantiating the object if we wish to.
  */
 interface PricingStrategyI {
     public function getPizzaPrice($price);
