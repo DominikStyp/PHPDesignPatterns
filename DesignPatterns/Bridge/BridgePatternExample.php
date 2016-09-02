@@ -20,26 +20,26 @@ interface LoggerI {
 
 class MessageSenderEmail implements MessageSenderI {
     public function send($title, $message) {
-        echo "Sending message via e-mail: $title, $message <br />";
+        echo "&gt;&gt;&gt; <u>Sending E-mail: $title, $message </u><br />";
     }
 }
 class MessageSenderSMS implements MessageSenderI {
     public function send($title, $message) {
-        echo "Sending message via SMS: $title, $message <br />";
+        echo "&gt;&gt;&gt; <i>Sending SMS: $title, $message </i><br />";
     }
 }
 
 class ErrorLoggerTxt implements LoggerI {
     public function log($message, MessageSenderI $sender){
         $date = date("Y-m-d H:i:s");
-        $message = "Message $message was logged $date\n";
+        $message = "Message $message (logged $date)\n";
         $sender->send("Error", $message);
     }
 }
 class ErrorLoggerHTML implements LoggerI {
     public function log($message, MessageSenderI $sender){
         $date = date("Y-m-d H:i:s");
-        $message = "<p><b>$message</b> was sent and logged ($date)</p>";
+        $message = "<p><b>$message</b> [$date]</p>";
         $sender->send("Error", $message);
     }
 }
