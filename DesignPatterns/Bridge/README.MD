@@ -5,7 +5,7 @@ Whole idea behind it is to **decouple implementations of each class via interfac
 Characteristics of this implementation:
  1. at least 2 interfaces related with each other
  2. all dependencies in classes are injected via interfaces, never through concrete classes
- 3. every concrete class in bridge pattern should implement interface, and be dependent upon other interface(s)
+ 3. every concrete class in bridge pattern should implement interface, and/or be dependent upon other interface(s)
 
 ## Summary
 ### Pros
