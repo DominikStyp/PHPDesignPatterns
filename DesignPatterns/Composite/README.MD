@@ -1,6 +1,7 @@
 ## Composite Pattern Example
 First example of how to use **Composite Pattern** is basic implementation of **BlogPostComponent**. <br />
-Whole idea behind it is to **build (construct and setup) objects in separate classes** <br />
+Whole idea behind it is to **implement component in Object and GroupOfObjects classes, <br />
+so that you can add Object or GroupOfObjects to the GroupOfObjects class (in nested way)** <br />
 [CompositePatternExample.php](CompositePatternExample.php)<br />
 Characteristics of this implementation:
  1. Object class and GroupOfObjects class implement same interface or inherit from same abstract class (Component)
