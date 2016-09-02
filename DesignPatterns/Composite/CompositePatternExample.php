@@ -35,10 +35,18 @@ class BlogPostGroup extends BlogPostComponent {
         $this->groupName = $groupName;
     }
 
+    /**
+     * Here you can add BlogPost | BlogPostGroup to the list
+     * @param BlogPostComponent $component
+     */
     public function add(BlogPostComponent $component) {
         $this->components[spl_object_hash($component)] = $component;
     }
 
+    /**
+     * Here you can delete BlogPost | BlogPostGroup from the list
+     * @param BlogPostComponent $component
+     */
     public function remove(BlogPostComponent $component) {
         unset($this->components[spl_object_hash($component)]);
     }
