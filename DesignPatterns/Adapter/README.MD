@@ -1,4 +1,4 @@
-## Facade Pattern Example
+## Adapter Pattern Example
 First example of how to use **Adapter Pattern** is basic implementation of **ForumUserAdapter**. <br />
 Whole idea behind it is to **make adapter BETWEEN two different classes** <br />
 Imagine that you have a cable with the USB plug on one end, and PS2 plug on the other - this is adapter.<br />
