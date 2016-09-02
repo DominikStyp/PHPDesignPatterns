@@ -11,11 +11,11 @@ Characteristics of this implementation:
 ### Pros
  1. very high decoupling
  2. very high re-usability of the code
- 3. very flexible code (you can change implementations of each class)
- 4. every class works independently on the other (only dependency is the interface)
+ 3. flexibility
+ 4. concrete classes works independently on the others (only connection is via interface)
 
 ### Cons
  1. many classes, methods and files to deal with
  2. many relations between many interfaces may be confusing
- 3. worse readability of the code
- 4. code could harder to debug, especially when concrete implementations are injected via reflection in runtime
+ 3. less readable and understandable code
+ 4. code could be harder to debug, especially when concrete implementations are injected via reflection in runtime
