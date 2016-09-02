@@ -32,7 +32,7 @@ class AcceptIntegersObserver implements SplObserver {
 	
 }
 $subject = new Subject();
-$observer = new AcceptIntegersObserver();
+$observer = new EmailObserver();
 $subject->attach($observer);
 $subject->setValue(5);
 //$subject->setValue("5d");  // Exception!
