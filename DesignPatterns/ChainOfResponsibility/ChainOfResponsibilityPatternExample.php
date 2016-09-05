@@ -15,7 +15,6 @@ abstract class ChainAbstract implements Chain {
      * @var Chain
      */
     protected $nextChain;
-
     /**
      * @param Chain $nextChain
      * @return Chain
@@ -27,8 +26,6 @@ abstract class ChainAbstract implements Chain {
 }
 
 class ReportGuests extends ChainAbstract {
-
-
     public function getReportString($report) {
         if($report === "guests"){
             return "There are currently 100 guests on your site";
@@ -76,7 +73,6 @@ class ReportTest {
     }
 }
 
-//////// example /////////
 
-// see how it works
+///////// see how it works ////////////
 echo "Report: " . ReportTest::getChainedReports()->getReportString("admins");
