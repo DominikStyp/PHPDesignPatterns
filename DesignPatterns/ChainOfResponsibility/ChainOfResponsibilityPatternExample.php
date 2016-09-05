@@ -37,7 +37,7 @@ class ReportGuests implements Chain {
 
     public function getReportString(ReportType $report) {
         if($report->getReportType() == "guests"){
-            return "There are currently 100 guest on your site";
+            return "There are currently 100 guests on your site";
         }
         return $this->nextChain->getReportString($report);
     }
@@ -60,7 +60,7 @@ class ReportUsers implements Chain {
 
     public function getReportString(ReportType $report) {
         if($report->getReportType() == "users"){
-            return "There are currently 200 logged in user on the site";
+            return "There are currently 200 logged in users on the site";
         }
         return $this->nextChain->getReportString($report);
     }
