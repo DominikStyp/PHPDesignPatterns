@@ -9,14 +9,14 @@ Best way to avoid accidental display of restricted data, is to use **Proxy class
 Characteristics of this implementation:
  1. proxy class stores an instance of source class (User) in private field
  2. source class should be passed to proxy class via constructor
- 3. proxy class has access to
+ 3. proxy class has access only to allowed methods (that's for what proxy is)
 
 ## Summary
 ### Pros
- 1. less memory usage when reusing same instance of the big object, instead of creating new
- 2. sharing variables across all references to the object
+ 1. safe data manipulation, and retrieve via proxy class
+ 2. much less methods on the IDE hint list (especially if you use small proxies for small purposes)
+ 3. possibility to add additional data filters in specific proxies (like XSS for templates)
 
 ### Cons
- 1. polymorphism is difficult to implement since getInstance is a static call,
- 2. when using inheritance, you have to define **getInstance()** method in each child class,
- or use reflection, late static binding etc.
+ 1. More classes to maintain
+ 2. More work to do while refactoring the source classes
