@@ -7,47 +7,14 @@ namespace DesignPatterns\ChainOfResponsibility;
  */
 interface Chain {
     public function setNextChain(Chain $nextChain);
-    public function getReportString(ReportType $report);
+    public function getReportString($report);
 }
 
-class ReportType {
-    private $type;
-    public function __construct($type){
-        $this->type = $type;
-    }
-    public function getReportType(){
-        return $this->type;
-    }
-}
-
-class ReportGuests implements Chain {
+abstract class ChainAbstract implements Chain {
     /**
      * @var Chain
      */
-    private $nextChain;
-
-    /**
-     * @param Chain $nextChain
-     * @return Chain
-     */
-    public function setNextChain(Chain $nextChain) {
-         $this->nextChain = $nextChain;
-        return $nextChain;
-    }
-
-    public function getReportString(ReportType $report) {
-        if($report->getReportType() == "guests"){
-            return "There are currently 100 guests on your site";
-        }
-        return $this->nextChain->getReportString($report);
-    }
-}
-
-class ReportUsers implements Chain {
-    /**
-     * @var Chain
-     */
-    private $nextChain;
+    protected $nextChain;
 
     /**
      * @param Chain $nextChain
@@ -57,9 +24,22 @@ class ReportUsers implements Chain {
         $this->nextChain = $nextChain;
         return $nextChain;
     }
+}
 
-    public function getReportString(ReportType $report) {
-        if($report->getReportType() == "users"){
+class ReportGuests extends ChainAbstract {
+
+
+    public function getReportString($report) {
+        if($report === "guests"){
+            return "There are currently 100 guests on your site";
+        }
+        return $this->nextChain->getReportString($report);
+    }
+}
+
+class ReportUsers extends ChainAbstract {
+    public function getReportString($report) {
+        if($report === "users"){
             return "There are currently 200 logged in users on the site";
         }
         return $this->nextChain->getReportString($report);
@@ -67,26 +47,18 @@ class ReportUsers implements Chain {
 }
 
 
-class ReportAdmins implements Chain {
-    /**
-     * @var Chain
-     */
-    private $nextChain;
-
-    /**
-     * @param Chain $nextChain
-     * @return Chain
-     */
-    public function setNextChain(Chain $nextChain) {
-        $this->nextChain = $nextChain;
-        return $nextChain;
-    }
-
-    public function getReportString(ReportType $report) {
-        if($report->getReportType() == "admins"){
+class ReportAdmins extends ChainAbstract {
+    public function getReportString($report) {
+        if($report === "admins"){
             return "There are currently 2 logged admins on the site";
         }
         return $this->nextChain->getReportString($report);
+    }
+}
+
+class ReportForMoron extends ChainAbstract {
+    public function getReportString($report) {
+        return "Sorry but all previous reports failed. So you end up in Report for Moron. Congrats!";
     }
 }
 
@@ -98,7 +70,8 @@ class ReportTest {
         // set up chain
         $report = new ReportGuests();
         $report->setNextChain(new ReportUsers())
-               ->setNextChain(new ReportAdmins());
+               ->setNextChain(new ReportAdmins())
+               ->setNextChain(new ReportForMoron());
         return $report;
     }
 }
@@ -106,4 +79,4 @@ class ReportTest {
 //////// example /////////
 
 // see how it works
-echo "Report: " . ReportTest::getChainedReports()->getReportString(new ReportType("admins"));
+echo "Report: " . ReportTest::getChainedReports()->getReportString("admins");
