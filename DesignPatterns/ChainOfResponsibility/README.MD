@@ -13,6 +13,7 @@ Characteristics of this implementation:
  1. useful in big classes with many if/else statements, which can be split up to smaller classes
  2. it strips class of many responsibilities in favor of one concrete.
  3. it gives flexible chain settings, where order of priorities can be easily changed
+ 4. practically unlimited classes in chain
 
 ### Cons
  1. many classes and files to deal with
