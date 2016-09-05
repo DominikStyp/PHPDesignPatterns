@@ -79,7 +79,6 @@ abstract class AbstractDevice implements DeviceI {
     function disconnect(MediatorI $mediator) {
         $mediator->disconnect($this);
     }
-
     /**
      * Gets messages from the mediator (Router)
      * @param $msg
@@ -120,5 +119,5 @@ $laptop->connect($router);
 $phone->connect($router);
 $fridge->connect($router);
 $fridge->disconnect($router);
-// here messege goes: phone -> router -> laptop
+// here message goes: phone -> router -> laptop
 $phone->sendTo($router, $laptop, "Hello laptop!");
