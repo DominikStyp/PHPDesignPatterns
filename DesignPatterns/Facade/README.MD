@@ -1,6 +1,7 @@
 ## Facade Pattern Example
 First example of how to use **Facade Pattern** is basic implementation of **ShopOrder**. <br />
-Whole idea behind it is to **break code to smaller pieces (classes)** <br />
+Whole idea behind it is to **break code to smaller pieces and move all the logic chain which is repetitive to the other class** <br />
+In the following example, **Facade Pattern** is in **order** method, where all the actions regarding order take place. <br />
 [FacadePatternExample.php](FacadePatternExample.php)<br />
 Characteristics of this implementation:
  1. Bigger classes and methods are splitted into smaller fragments
