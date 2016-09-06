@@ -11,6 +11,7 @@ interface MediatorI {
     function connect(DeviceI $device);
     function disconnect(DeviceI $device);
     function sendTo(DeviceI $fromDevice, DeviceI $targetDevice, $message); //sends messages between connected devices
+    function sendToId(DeviceI $fromDevice, $toDeviceId, $message); //same as above but gets device id as second parameter
     /**
      * @param $deviceId
      * @return DeviceI
