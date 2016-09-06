@@ -10,14 +10,20 @@ namespace DesignPatterns\Mediator;
 interface MediatorI {
     function connect(DeviceI $device);
     function disconnect(DeviceI $device);
-    function sendTo(DeviceI $fromDevice, DeviceI $targetDevice, $message);
+    function sendTo(DeviceI $fromDevice, DeviceI $targetDevice, $message); //sends messages between connected devices
+    /**
+     * @param $deviceId
+     * @return DeviceI
+     */
+    function getDeviceById($deviceId);
 }
 // Colleague
 interface DeviceI {
-   function connect(MediatorI $mediator);
-   function disconnect(MediatorI $mediator);
-   function getFeedback($msg);
-   function sendTo(MediatorI $mediator, DeviceI $device, $message);
+   function connect(MediatorI $mediator); //connects to the router (mediator)
+   function disconnect(); //we don't need to pass Mediator here, cause device stores reference to it
+   function isConnected();
+   function getFeedback($msg); //gets feedback from the mediator (router)
+   function sendTo($deviceId, $message); //sends message to other device which is connected to the router
    function getId();
 }
 
@@ -49,6 +55,11 @@ class Router implements MediatorI {
         $device->getFeedback("Goodbye <b>$id</b>, currently connected devices: <b>{$this->getConnectedDevices()}</b>");
     }
 
+    function isIdConnectedCheck($deviceId){
+        if(!isset($this->devices[$deviceId])){
+            throw new \Exception("Device $deviceId isn't connected");
+        }
+    }
     /**
      * Sends messages between devices
      * @param DeviceI $fromDevice
@@ -58,10 +69,25 @@ class Router implements MediatorI {
     function sendTo(DeviceI $fromDevice, DeviceI $targetDevice, $message){
         $fromId = $fromDevice->getId();
         $toId = $targetDevice->getId();
-        if(isset($this->devices[$toId])){
-            $this->devices[$toId]->getFeedback("Device <b>$toId</b>, you have a message from <b>$fromId</b>: <i>$message</i>");
-        }
+        $this->isIdConnectedCheck($fromId);
+        $this->isIdConnectedCheck($toId);
+        $this->devices[$toId]->getFeedback("Device <b>$toId</b>, you have a message from <b>$fromId</b>: <i>$message</i>");
     }
+
+    function sendToId(DeviceI $fromDevice, $toDeviceId, $message){
+        /**
+         * @var DeviceI
+         */
+        $this->isIdConnectedCheck($fromDevice->getId());
+        $this->isIdConnectedCheck($toDeviceId);
+        $targetDevice = $this->getDeviceById($toDeviceId);
+        $this->sendTo($fromDevice, $targetDevice, $message);
+    }
+
+    function getDeviceById($deviceId){
+        return isset($this->devices[$deviceId]) ? $this->devices[$deviceId] : null;
+    }
+
     function getConnectedDevices(){
         $str = "";
         foreach($this->devices as $dev){
@@ -73,11 +99,20 @@ class Router implements MediatorI {
 }
 
 abstract class AbstractDevice implements DeviceI {
+    /**
+     * @var MediatorI
+     */
+    protected $mediator;
     function connect(MediatorI $mediator) {
-        $mediator->connect($this);
+        $this->mediator = $mediator;
+        $this->mediator->connect($this);
     }
-    function disconnect(MediatorI $mediator) {
-        $mediator->disconnect($this);
+    function disconnect() {
+        $this->mediator->disconnect($this);
+        $this->mediator = null;
+    }
+    function isConnected(){
+        return !empty($this->mediator);
     }
     /**
      * Gets messages from the mediator (Router)
@@ -86,8 +121,11 @@ abstract class AbstractDevice implements DeviceI {
     function getFeedback($msg) {
         echo "<b>{$this->getId()}</b>, Router sends message: <p style=\"font-size:13px;\">&nbsp;&nbsp;&nbsp;&nbsp;$msg</p>";
     }
-    function sendTo(MediatorI $mediator, DeviceI $device, $message){
-        $mediator->sendTo($this,$device,$message);
+    function sendTo($deviceId, $message){
+        if(!$this->isConnected()){
+            throw new \Exception("Device $deviceId is not connected!");
+        }
+        $this->mediator->sendToId($this,$deviceId,$message);
     }
 }
 
@@ -120,4 +158,7 @@ $phone->connect($router);
 $fridge->connect($router);
 $fridge->disconnect($router);
 // here message goes: phone -> router -> laptop
-$phone->sendTo($router, $laptop, "Hello laptop!");
+$phone->sendTo("DrDooms_laptop", "Hello Dr Doom!!!");
+$laptop->disconnect();
+//Exception! DrDooms laptop was just destroyed, and disconnected
+$phone->sendTo("DrDooms_laptop", "Dr Doom! Are you still there?");
