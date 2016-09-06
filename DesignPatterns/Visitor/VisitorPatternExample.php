@@ -15,7 +15,6 @@ interface VisitableI {
 }
 
 class HomeDevicesTurnedOnChecker implements VisitorI{
-
     private $data = [];
     function setAdditionalData(array $data){
         $this->data = $data;
@@ -39,6 +38,9 @@ class HomeDevicesTurnedOnChecker implements VisitorI{
                  echo "<p>Your washing machine is currently $state!<br />",
                       "And it's gonna turn off in {$this->data['minutesToEnd']}<br /></p>";
                  $this->data = [];
+         }
+         else {
+             throw new \Exception("Unknown visitable object");
          }
     }
 }
