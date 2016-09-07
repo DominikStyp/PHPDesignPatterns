@@ -58,5 +58,5 @@ echo "<br />";
 echo "triangle2 hash: ". spl_object_hash($triangle2);
 // but they are not the same object
 $triangle2->setName("Triangle678");
-echo "<br />Triangle2 name has changed to '{$triangle2->getName()}', but triangle2 name is still '{$triangle1->getName()}'";
+echo "<br />Triangle2 name has changed to '{$triangle2->getName()}', but triangle1 name is still '{$triangle1->getName()}'";
 
