@@ -34,10 +34,9 @@ class EmailObserver implements SplObserver {
             }
         }
     }
-
 }
-$observer = new EmailObserver();
 
+$observer = new EmailObserver();
 $user = new MyUser();
 $user->attach($observer);
 $user->setEmail("bla@bla@.com");  // Error
