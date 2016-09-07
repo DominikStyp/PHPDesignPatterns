@@ -15,7 +15,7 @@ class MyUser implements SplSubject {
 
     public function setEmail($email) {
         $this->email = $email;
-        $this->notify();
+        $this->notify("setEmail");
     }
 
     public function getEmail() {
@@ -24,12 +24,14 @@ class MyUser implements SplSubject {
 }
 
 class EmailObserver implements SplObserver {
-    public function update(SplSubject $subject) {
-        $email = $subject->getEmail();
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "<b>Warning!!! Wrong e-mail: $email </b><br />";
-        } else {
-            echo "<b>Cool, your e-mail $email seems valid </b><br />";
+    public function update(SplSubject $subject, $eventType = "") {
+        if ($eventType === "setEmail") {
+            $email = $subject->getEmail();
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "<b>Warning!!! Wrong e-mail: $email </b><br />";
+            } else {
+                echo "<b>Cool, your e-mail $email seems valid </b><br />";
+            }
         }
     }
 

@@ -10,6 +10,7 @@ trait SubjectTrait {
      */
     private $observersArray = array();
 
+
     public function attach(SplObserver $observer) {
         $id = spl_object_hash($observer);
         $this->observersArray[$id] = $observer;
@@ -20,9 +21,9 @@ trait SubjectTrait {
         unset( $this->observersArray[$id] );
     }
 
-    public function notify() {
+    public function notify($eventType = "") {
         foreach ($this->observersArray as $observer) {
-            $observer->update($this);
+            $observer->update($this, $eventType);
         }
     }
 }
