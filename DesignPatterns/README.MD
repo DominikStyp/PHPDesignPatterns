@@ -24,6 +24,8 @@ Most popular in this category are:
                      Proxy outputs **same type of interface, or base class - that input object implement/inherit**. <br />
                      It's mainly used to **limit access to some methods in the input class**. <br />
  5. Flyweight - provides efficient sharing, and reusing of already created objects, this can be also achieved by Factory. <br />
+ 6. [Criteria Filter](CriteriaFilter) - implements **Criteria** interface which allows to chain filters,in choosed order. <br /> 
+                                        It's very similar to Decorator Pattern.
 
 ### Behavioural Patterns
  1. [Chain of responsibility](ChainOfResponsibility) - if object cannot fulfill the task, it pushes it to the next in chain. <br />
