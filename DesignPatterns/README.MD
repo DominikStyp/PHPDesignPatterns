@@ -15,17 +15,17 @@ Most popular in this category are:
 
 ### Structural Patters
 Most popular in this category are:
- 1. [Adapter](Adapter) - works like real world adapter, imagine this as USB cable with USB plug on one end, and PS2 plug on the other end.<br />
-                         Main role of the adapter is to get object with one type, and return other type (created from the input type).
- 2. [Decorator](Decorator) - have ability to **wrap one functionality in another** like `decorator3(decorator2(decorator1(input)))` dynamically.
- 3. [Facade](Facade) - hides more complicated logic in it, best example is database method which takes SQL and retrieves the result,<br />
+ 1. [Adapter](Adapter) - works like real world adapter, imagine this as USB cable with USB plug on one end, and PS2 on the other. <br /> Main role of the adapter is to get object with one type, and return other type (created from the input type).
+ 2. [Criteria Filter](CriteriaFilter) - implements **Criteria** interface which allows to chain filters in choosed order. <br /> 
+                                        It's very similar to Decorator Pattern.
+ 3. [Decorator](Decorator) - have ability to **wrap one functionality in another** like `decorator3(decorator2(decorator1(input)))` dynamically.
+ 4. [Facade](Facade) - hides more complicated logic in it, best example is database method which takes SQL and retrieves the result,<br />
                        and hides all the complicated logic like: connect to database, choose database, fetch records - all happens behind the scenes.
- 4. [Proxy](Proxy) - representation of one object in the other object, it's very similar to the Adapter, with one difference,<br />
+ 5. [Proxy](Proxy) - representation of one object in the other object, it's very similar to the Adapter, with one difference,<br />
                      Proxy outputs **same type of interface, or base class - that input object implement/inherit**. <br />
                      It's mainly used to **limit access to some methods in the input class**. <br />
- 5. Flyweight - provides efficient sharing, and reusing of already created objects, this can be also achieved by Factory. <br />
- 6. [Criteria Filter](CriteriaFilter) - implements **Criteria** interface which allows to chain filters,in choosed order. <br /> 
-                                        It's very similar to Decorator Pattern.
+ 6. Flyweight - provides efficient sharing, and reusing of already created objects, this can be also achieved by Factory. <br />
+ 
 
 ### Behavioural Patterns
  1. [Chain of responsibility](ChainOfResponsibility) - if object cannot fulfill the task, it pushes it to the next in chain. <br />
