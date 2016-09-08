@@ -1,4 +1,11 @@
 # This repo contains quick and useful examples in PHP
+## Design Patterns
+[Design Patterns](DesignPatterns) is a chapter, where I've wrote most simple examples showing how, and when to use most of them.<br />
+All the patterns come from the book **Design Patterns: Elements of Reusable Object-Oriented Software** written by **Gang of Four**.<br /> All of them fall into 3 main categories:
+ 1. [Creational Patterns](DesignPatterns#creational-patterns)
+ 2. [Structural Patterns](DesignPatterns#structural-patters)
+ 3. [Behavioural Patterns](DesignPatterns#behavioural-patterns)
+
 ## Closures 
 How to effectively use [**PHP Closures**](Closures), returning them from the methods, <br />
 and even [**Customize PHP functions**](Closures#function-customizer), and predefine their arguments, <br /> 
