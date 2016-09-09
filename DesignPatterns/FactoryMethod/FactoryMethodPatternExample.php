@@ -12,13 +12,13 @@ interface ShapeI {
     function getType();
 }
 class Triangle implements ShapeI {
-    private $x = 10, $y = 5, $z = 12, $height = 7;
+    public $x = 0, $y = 0, $z = 0, $height = 0;
     function getPerimeter() { return $this->x + $this->y + $this->z; }
     function getArea()      { return ($this->x/2) * $this->height; }
     function getType()      { return "Triangle"; }
 }
 class Square implements ShapeI {
-    private $x = 10;
+    public $x = 0;
     function getPerimeter() { return $this->x * 4; }
     function getArea()      { return $this->x * $this->x; }
     function getType()      { return "Square"; }
@@ -27,7 +27,7 @@ abstract class AbstractFactory {
     /**
      * @var ShapeI
      */
-    private $shape;
+    protected $shape;
     public function __construct(){
         $this->shape = $this->getShape();
     }
@@ -46,15 +46,32 @@ abstract class AbstractFactory {
 
 class TriangleFactory extends AbstractFactory {
     /**
-     * Factory method returns interface or an class.
-     * But inherited methods should return the concrete type based on the interface
-     * @return ShapeI
+     * Overridden method forces AbstractFactory to create $shape as a Triangle
+     * @return Triangle
      */
-    public function getShape() {
+    protected function getShape() {
         return new Triangle();
+    }
+
+    /**
+     * In this method we can easily manipulate the Triangle object which is already created
+     * Equilateral = has the same length of each side
+     * @return Triangle
+     */
+    public function getEquilateralTriangle($side){
+        /**
+         * @var $triangle Triangle
+         */
+        $triangle = $this->shape;
+        // this should be done by triangle setters, but this is simple example just to show factory method
+        $triangle->x = $triangle->y = $triangle->z = $side;
+        return $triangle;
     }
 }
 
 //////// example /////////////
-$triangle = (new TriangleFactory())->getShape();
-echo "Triangle area: {$triangle->getPerimeter()} ";
+$factory = new TriangleFactory();
+echo "Shape type created: {$factory->getShapeType()} <br />";
+// since we have Triangle created, we can easily manipulate it.
+$triangle = $factory->getEquilateralTriangle(10);
+echo "Area: {$triangle->getPerimeter()} <br />";
