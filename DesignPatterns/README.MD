@@ -10,8 +10,9 @@ and are mainly used to simplify, speed up, or decouple this process, and elimina
 Most popular in this category are:
  1. [Builder](Builder) - creates complex objects, separates construction from representation
  2. [Factory](Factory) - creates different types of objects based on the same interfaces but with different implementations
- 3. [Prototype](Prototype) - clones created object, used to speed up the process and minimize usage of **new** keyword in your code
- 4. [Singleton](Singleton) - creates ONE instance of the object, holds it in static variable, and serves reference to it.
+ 3. [Factory Method](FactoryMethod) - same as factory, but with abstract factory class, and children factories that implement abstract methods.
+ 4. [Prototype](Prototype) - clones created object, used to speed up the process and minimize usage of **new** keyword in your code
+ 5. [Singleton](Singleton) - creates ONE instance of the object, holds it in static variable, and serves reference to it.
 
 ### Structural Patters
 Most popular in this category are:
