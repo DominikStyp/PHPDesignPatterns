@@ -38,12 +38,6 @@ class SortedQueue extends \SplPriorityQueue
             return $priority1 < $priority2 ? -1 : 1;
         }
     }
-    /**
-     * @param $sortType = SORT_ASCENDING | SORT_DESCENDING
-     */
-    public function changeSortOrder($sortType){
-        $this->sortType = $sortType;
-    }
     public function add(PrioritableI $object){
         $this->insert($object, $object->getPriority());
     }
@@ -91,6 +85,10 @@ $posts = [
     new Post("Links to PHP Books Part1", "2015-09-12 22:00:54"),
     new Post("Blog has been created", "2012-07-14 12:33:32"),
 ];
+/**
+ * Rememeber ! Sorting order must be defined before adding objects to the queue.
+ * That's because compare() function compares elements while they're added, not retrieved.
+ */
 $queue = new SortedQueue(SortedQueue::SORT_ASCENDING);
 $queue->addArray($posts);
 // display posts in correct order
