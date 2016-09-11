@@ -26,7 +26,7 @@ class C {
     public function getId()       { return $this->id; }
     public function getParentId() { return $this->parentId; }
     public function __toString(){
-        return "{ category: (parent_id:{$this->parentId}, id:{$this->id}) }";
+        return "{ category: { parent_id:{$this->parentId}, id:{$this->id} } }";
     }
 }
 class CategoriesHeap extends \SplMinHeap {
