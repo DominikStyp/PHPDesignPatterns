@@ -11,7 +11,7 @@ and you need to improve performance.
 
 ## Cons
  1. you can't add new elements via `$arr[] = 'new element';`
- 2. you have to define it's length during declaration
+ 2. you have to define its length during declaration
  3. doesn't allow string keys (only integers)
 
 ## Summary
