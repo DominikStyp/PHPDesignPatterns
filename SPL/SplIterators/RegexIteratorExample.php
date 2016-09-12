@@ -27,10 +27,10 @@ class RegexIteratorCustom  extends \RegexIterator {
 abstract class AbstractRegexIterator {
     protected $format;
     protected $flag;
-    protected $inputArray = array();
+    protected $input;
     protected $replacement = "";
-    protected function __construct(array $inputArray, $format, $flag){
-        $this->inputArray = $inputArray;
+    protected function __construct(Iterator $input, $format, $flag){
+        $this->input = $input;
         $this->format = $format;
         $this->flag = $flag;
     }
@@ -38,11 +38,14 @@ abstract class AbstractRegexIterator {
      * @return \RegexIterator
      */
     public function getIterator(){
-        $iterator = new RegexIteratorCustom(new \ArrayIterator($this->inputArray), $this->format, $this->flag);
+        $iterator = new RegexIteratorCustom($this->input, $this->format, $this->flag);
         if($this->flag === \RegexIterator::REPLACE){
             $iterator->replacement = $this->replacement;
         }
         return $iterator;
+    }
+    protected function setReplacement($replacement){
+        $this->replacement = $replacement;
     }
 }
 
@@ -52,20 +55,31 @@ abstract class AbstractRegexIterator {
  * @package SPL\SplIterators
  */
 class PostCodeExtractor extends AbstractRegexIterator {
-    public function __construct(array $inputArray) {
-        parent::__construct($inputArray, "#.*?(\D|^)(\d{2}-\d{3})(\D|$).*#", \RegexIterator::REPLACE);
-        $this->replacement = '$2';
+    /**
+     * Important is that you have flexibility to choose the constructor's parameter.
+     * This can be an array or other Iterator. Depends on you
+     * @param array $input
+     */
+    public function __construct(array $input) {
+        parent::__construct(new \ArrayIterator($input), "#.*?(\D|^)(\d{2}-\d{3})(\D|$).*#", RegexIteratorCustom::REPLACE);
+        $this->setReplacement('$2');
     }
 }
 
 class VulgarismsFilter extends AbstractRegexIterator{
     const VULGARISMS = "fuck|shit|whore|ass|cunt|dick";
-    public function __construct(array $inputArray) {
-        parent::__construct($inputArray, "#".self::VULGARISMS."#", RegexIteratorCustom::NOT_MATCH);
+    public function __construct(array $input) {
+        parent::__construct(new \ArrayIterator($input), "#".self::VULGARISMS."#", RegexIteratorCustom::NOT_MATCH);
     }
 }
 
-////// example 1 ///////
+class BoldedWordsMatcher extends AbstractRegexIterator{
+    public function __construct(array $input) {
+        parent::__construct(new \ArrayIterator($input), '#<b>(.*?)(?=</b>)#i', RegexIteratorCustom::ALL_MATCHES);
+    }
+}
+
+////// example 1 replace everything except the post code in the string ///////
 $extractor = new PostCodeExtractor([
     'some string, 1992-03-03, postal code 12-333 other string',
     '11-222 other string',
@@ -75,7 +89,8 @@ $extractor = new PostCodeExtractor([
 foreach($extractor->getIterator() as $code){
     echo "Post code: $code <br />";
 }
-////// example 2 /////////
+
+////// example 2 exclude those that match vulgarisms list /////////
 $filter = new VulgarismsFilter([
     'Very nice page.',
     'You fucking moron',
@@ -85,4 +100,15 @@ $filter = new VulgarismsFilter([
 // posts will be automatically censored, only those with proper content are gonna be displayed
 foreach($filter->getIterator() as $post){
     echo "<p>Post content: <b>$post</b></p>";
+}
+
+///// example 3 match all bolded words in the string //////////////
+$matcher = new BoldedWordsMatcher( [
+        'This is some <b>HTML</b> where we have important <b>words</b>',
+        'And we would like to <b>iterate</b> over <b>all</b> of them',
+        'This line won\'t be displayed, since it doesn\'t have bolded words',
+] );
+foreach($matcher->getIterator() as $found){
+    $words = implode(', ', $found[1]); // [1] refers to the first matched atom (.*?)
+    echo "<p>In this line I've found bolded words: <b>$words</b></p>";
 }
