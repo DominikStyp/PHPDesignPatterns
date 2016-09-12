@@ -40,7 +40,16 @@ To do that, you need to use reflection trick: <br />
  }
 ```
 Check out full example: [ArrayObjectExample.php](ArrayObjectExample.php) <br />
-
+## Pass without reference
+Normally in PHP arrays (in contract to Java arrays), are passed to the function **by value**,<br />
+so whole array is copied like scalar value, and passed to the function, which is time and memory consuming process.<br />
+To avoid this, you can change your array to **ArrayObject**, so it's gonna behave like array, but it won't get copied.<br />
 ```php
-
+function modify($var){
+    $var[0] = 'changed';
+}
+$arrObj = new ArrayObject(['one', 'two', 'three']);
+modify($arrObj);
+echo $arrObj[0]; //changed
 ```
+See full example [ArrayObjectPassWithoutReferenceExample.php](ArrayObjectPassWithoutReferenceExample.php)
