@@ -40,7 +40,7 @@ To do that, you need to use reflection trick: <br />
  }
 ```
 Check out full example: [ArrayObjectExample.php](ArrayObjectExample.php) <br />
-## Pass without reference
+## Minimize memory usage
 Normally in PHP arrays (in contract to Java arrays), are passed to the function **by value**,<br />
 so whole array is copied like scalar value, and passed to the function, which is time and memory consuming process.<br />
 To avoid this, you can change your array to **ArrayObject**, so it's gonna behave like array, but it won't get copied.<br />
@@ -52,4 +52,28 @@ $arrObj = new ArrayObject(['one', 'two', 'three']);
 modify($arrObj);
 echo $arrObj[0]; //changed
 ```
-See full example [ArrayObjectPassWithoutReferenceExample.php](ArrayObjectPassWithoutReferenceExample.php)
+See full example [ArrayObjectPassWithoutReferenceExample.php](ArrayObjectPassWithoutReferenceExample.php)<br />
+Very important also is that you can **save a lot of memory** using ArrayObject in cases like:<br />
+```php
+function passArr1($arr){
+    $arr[0] = "passArr1";
+    passArr2($arr);
+}
+function passArr2($arr){
+    $arr[0] = "passArr2";
+    passArr3($arr);
+}
+function passArr3($arr){
+    $arr[0] = "passArr3";
+    passArr4($arr);
+}
+function passArr4($arr){
+    $arr[0] = "passArr4";
+}
+$hugeArray = array_fill(0,10000,mt_rand(1000000,1999999));
+// in this case $hugeArray is gonna be copied for all nested functions
+passArr1($hugeArray);
+// but using ArrayObject, you can avoid this, so every nested function operates on the same object
+passArr1(new ArrayObject($hugeArray));
+```
+See **comparing memory test array vs ArrayObject** here: [ArrayObjectPassMemoryTest.php](ArrayObjectPassMemoryTest.php) <br />
