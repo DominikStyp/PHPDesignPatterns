@@ -60,6 +60,7 @@ class RegexIteratorCustom  extends \RegexIterator {
     }
 }
 ```
+Full example is here [RegexIteratorExample.php](RegexIteratorExample.php).<br />
 You can use this class the same way as **RegexIterator** but with additional **flag NOT_MATCH**,<br />
 in case you want to throw away results that do not match your regular expression, <br />
 which is equal to ` !preg_match(....) `.
