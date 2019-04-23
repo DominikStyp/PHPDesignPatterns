@@ -8,12 +8,12 @@ For that purpose I've implemented **visitor class** called **HomeDevicesTurnedOn
 using its specific method to check the status. <br />
 [VisitorPatternExample.php](VisitorPatternExample.php)<br />
 
-In the another example we have hospital patients (visitables), and nurses (visitors). <br />
+In the another example [VisitorPatternExample1.php](VisitorPatternExample1.php) we have hospital patients (visitables), and nurses (visitors). <br />
 Every nurse (visitor) has her own responsibility: <br /> 
  1. Nurse1 is checking the patients pulse, and alerts personnel if any life is in danger
  2. Nurse2 is checking whether babies are hungry and feed them if needed
- 3. Nurse3 is checking whether old people are bored and turns on the TV if that's the case
-[VisitorPatternExample1.php](VisitorPatternExample1.php)<br />
+ 3. Nurse3 is checking whether old people are bored and turns on the TV if that's the case <br />
+<br />
 
 Characteristics of this implementation:
  1. similar to Observer Pattern, but without noticing about the events.
