@@ -1,5 +1,5 @@
-## Design Patterns
-First of all, **Design Patterns** is not necessary to resolve many existing programming problems <br />
+## Design Patterns Overview
+**Design Patterns** is not necessary to resolve many existing programming problems <br />
 however they can significantly speed up the resolution, make the code neat, clean, reusable, and decoupled.<br />
 The most important word here is **decoupled**. That means every concrete class should be **independent on the others**, <br />
 but only on interfaces/abstract classes which other classes implement/extend.<br />
